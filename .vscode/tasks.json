@@ -15,6 +15,29 @@
       },
       "isBackground": true,
       "problemMatcher": "$go"
+    },
+    {
+      "label": "Frontend: Serve",
+      "icon": {
+        "id": "server-process",
+        "color": "terminal.ansiGreen"
+      },
+      "type": "shell",
+      "command": "yarn workspace frontend run start",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "(.*?)"
+          },
+          "endsPattern": {
+            "regexp": "bundle generation complete"
+          }
+        }
+      }
     }
   ]
 }
