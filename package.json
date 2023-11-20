@@ -1,0 +1,10 @@
+{
+  "name": "pocketgolf",
+  "packageManager": "yarn@4.0.2",
+  "workspaces": [
+    "packages/*"
+  ],
+  "volta": {
+    "node": "20.9.0"
+  }
+}
