@@ -1,3 +1,6 @@
 {
-  "recommendations": []
+  "recommendations": [
+    "angular.ng-template",
+    "arcanis.vscode-zipfs"
+  ]
 }
