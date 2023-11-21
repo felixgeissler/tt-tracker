@@ -1,6 +1,9 @@
 {
   "recommendations": [
     "angular.ng-template",
-    "arcanis.vscode-zipfs"
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "arcanis.vscode-zipfs",
+    "cyrilletuzi.angular-schematics"
   ]
 }
