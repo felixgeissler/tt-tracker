@@ -19,16 +19,12 @@
     "importHelpers": true,
     "useDefineForClassFields": false
   },
-  "include": [
-    "src",
-    "./package.json"
-  ],
-  "exclude": [
-  ],
+  "include": ["src", "./package.json"],
+  "exclude": [],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  },
+  }
 }

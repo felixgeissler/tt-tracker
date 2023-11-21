@@ -1,0 +1,17 @@
+# IDEs
+.idea
+.vscode
+
+# Angular
+.angular
+dist
+node_modules
+
+# Yarn
+.yarn
+
+# Backend
+backend/LICENSE.md
+backend/CHANGELOG.md
+backend/pb_migrations
+backend/pb_data
