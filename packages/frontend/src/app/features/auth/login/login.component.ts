@@ -13,12 +13,21 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { FormFieldComponent } from '../../ui/form-field/form-field.component';
+import { InputDirective } from '../../ui/input/input.directive';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
+    FormFieldComponent,
+    InputDirective,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
