@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   inject,
-  signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormsModule,
@@ -12,31 +13,56 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { FormFieldComponent } from '../../ui/form-field/form-field.component';
+import { InputDirective } from '../../ui/input/input.directive';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
+    InputDirective,
+    FormFieldComponent,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {
   private authService = inject(AuthService);
+  private cdr = inject(ChangeDetectorRef);
 
   registerForm = inject(FormBuilder).nonNullable.group({
-    email: ['', [Validators.required]],
-    password: ['', [Validators.required]],
+    email: [''],
+    password: [''],
   });
-  submitted = signal(false);
+
+  isRegisterControlInvalid(path: string) {
+    const control = this.registerForm.get(path);
+    return control?.errors || this.registerForm.errors;
+  }
+
+  constructor() {
+    this.registerForm.statusChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe(() => this.cdr.markForCheck());
+  }
 
   async onSubmit() {
     const { email, password } = this.registerForm.value;
 
-    this.submitted.set(true);
-    if (this.registerForm.invalid || !email || !password) {
-      this.registerForm.markAllAsTouched();
+    this.registerForm
+      .get('email')
+      ?.setValidators([Validators.required, Validators.email]);
+    this.registerForm.get('password')?.setValidators([Validators.required]);
+    this.registerForm.get('email')?.updateValueAndValidity();
+    this.registerForm.get('password')?.updateValueAndValidity();
+
+    if (!this.registerForm.valid || !email || !password) {
       return;
     }
 

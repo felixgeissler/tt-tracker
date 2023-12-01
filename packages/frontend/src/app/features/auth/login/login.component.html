@@ -16,87 +16,43 @@
       action="#"
       (ngSubmit)="onSubmit()"
       [formGroup]="loginForm">
-      <div>
-        <label
-          for="email"
-          class="block text-sm font-medium leading-6 text-gray-900"
-          >Email address</label
-        >
-        <div class="mt-2">
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            formControlName="email"
-            tabindex="1"
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 {{
-              isLoginControlInvalid('email') ? 'ring-red-400' : 'ring-gray-300'
-            }}" />
-          @if (this.loginForm.get('email')?.errors) {
-            <div class="mt-2">
-              @if (this.loginForm.get('email')?.hasError('required')) {
-                <p class="text-red-500 text-sm">Email is required</p>
-              }
-              @if (this.loginForm.get('email')?.hasError('email')) {
-                <p class="text-red-500 text-sm">Invalid email</p>
-              }
-            </div>
-          }
-        </div>
-      </div>
+      <app-form-field label="Email">
+        <input
+          appInput
+          formControlName="email"
+          type="email"
+          autocomplete="email"
+          placeholder="E-Mail"
+          tabindex="1" />
+        @if (this.loginForm.get('email')?.hasError('required')) {
+          <p formFieldError>Email is required</p>
+        }
+        @if (this.loginForm.get('email')?.hasError('email')) {
+          <p formFieldError>Invalid email</p>
+        }
+      </app-form-field>
+      <app-form-field label="Password">
+        <input
+          appInput
+          formControlName="password"
+          type="password"
+          autocomplete="current-password"
+          placeholder="Password"
+          tabindex="2" />
+        @if (this.loginForm.get('password')?.hasError('required')) {
+          <p formFieldError>Password is required</p>
+        }
+        @if (loginForm.hasError('invalidCredentials')) {
+          <p formFieldError>Invalid email or password</p>
+        }
+      </app-form-field>
 
-      <div>
-        <div class="flex items-center justify-between">
-          <label
-            for="password"
-            class="block text-sm font-medium leading-6 text-gray-900"
-            >Password</label
-          >
-          <div class="text-sm">
-            <a
-              href="#"
-              class="font-semibold text-indigo-600 hover:text-indigo-500"
-              tabindex="4"
-              >Forgot password?</a
-            >
-          </div>
-        </div>
-        <div class="mt-2">
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autocomplete="current-password"
-            formControlName="password"
-            tabindex="2"
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset  placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 {{
-              isLoginControlInvalid('password')
-                ? 'ring-red-400'
-                : 'ring-gray-300'
-            }}" />
-          @if (this.loginForm.get('password')?.errors) {
-            <div class="mt-2">
-              @if (this.loginForm.get('password')?.hasError('required')) {
-                <p class="text-red-500 text-sm">Password is required</p>
-              }
-            </div>
-          } @else if (loginForm.hasError('invalidCredentials')) {
-            <div class="mt-2">
-              <p class="text-red-500 text-sm">Invalid email or password</p>
-            </div>
-          }
-        </div>
-      </div>
-
-      <div>
-        <button
-          tabindex="3"
-          type="submit"
-          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-          Sign in
-        </button>
-      </div>
+      <button
+        tabindex="3"
+        type="submit"
+        class="flex w-full justify-center rounded-lg bg-indigo-600 px-3 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        Sign in
+      </button>
     </form>
 
     <p class="mt-10 text-center text-sm text-gray-500">
