@@ -3,6 +3,7 @@ import { authenticatedGuard } from './features/auth/authenticated.guard';
 import { LoginComponent } from './features/auth/login/login.component';
 import { notAuthenticatedGuard } from './features/auth/not-authenticated.guard';
 import { RegisterComponent } from './features/auth/register/register.component';
+import { VerifyEmailComponent } from './features/auth/verify-email/verify-email.component';
 import { HomeComponent } from './features/home/home.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 
@@ -21,6 +22,11 @@ export const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     canActivate: [notAuthenticatedGuard],
+  },
+  {
+    path: 'verify-email',
+    component: VerifyEmailComponent,
+    canActivate: [],
   },
   {
     path: 'home',

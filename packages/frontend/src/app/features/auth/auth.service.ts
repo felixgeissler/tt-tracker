@@ -30,6 +30,7 @@ export interface User extends BaseResponse {
 type UserCreateSuccessEvent = {
   type: 'success';
   data: User;
+  emailSent: boolean;
 };
 
 type UserCreateValidationErrorEvent = {
@@ -71,6 +72,9 @@ export class AuthService {
       return <UserCreateSuccessEvent>{
         type: 'success',
         data: await this.pb.collection('users').create<User>(body),
+        emailSent: await this.pb
+          .collection('users')
+          .requestVerification(body.email),
       };
     } catch (err) {
       if (!(err instanceof ClientResponseError)) {
@@ -86,6 +90,21 @@ export class AuthService {
             error: err.originalError.data,
           };
     }
+  }
+
+  async verifyEmail(verificationToken: string) {
+    return this.pb.collection('users').confirmVerification(verificationToken);
+  }
+
+  async requestPasswordReset(email: string) {
+    return this.pb.collection('users').requestPasswordReset(email);
+  }
+
+  async requestEmailChange(newEmail: string) {
+    if (!this.isLoggedIn) {
+      throw new Error('User is not logged in');
+    }
+    return this.pb.collection('users').requestEmailChange(newEmail);
   }
 
   logout() {
