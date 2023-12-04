@@ -5,6 +5,7 @@ import { notAuthenticatedGuard } from './features/auth/not-authenticated.guard';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { VerifyEmailComponent } from './features/auth/verify-email/verify-email.component';
 import { HomeComponent } from './features/home/home.component';
+import { LeagueListComponent } from './features/league/league-list/league-list.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
@@ -31,6 +32,11 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [authenticatedGuard],
+  },
+  {
+    path: 'leagues',
+    component: LeagueListComponent,
     canActivate: [authenticatedGuard],
   },
   { path: '**', component: PageNotFoundComponent },
