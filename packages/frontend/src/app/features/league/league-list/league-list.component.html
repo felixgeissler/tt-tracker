@@ -1,0 +1,16 @@
+<ul class="bg-neutral-100 p-5 flex flex-col gap-4">
+  @for (league of leagues(); track league.id) {
+    <li class="p-7 bg-white rounded-xl shadow-sm">
+      <p class="font-semibold text-neutral-800 text-lg leading-5">
+        {{ league.name }}
+      </p>
+      <p class="mt-2">{{ league.city }}</p>
+      <p>{{ league.description }}</p>
+    </li>
+  } @empty {
+    <li>No leagues found.</li>
+  }
+  @if (allLeaguesLoaded()) {
+    <li class="text-center">No more leagues can be found.</li>
+  }
+</ul>
