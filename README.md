@@ -2,6 +2,27 @@
 
 ## Development (VSCode)
 
+Setup Volta to manage NodeJS version
+
+```bash
+curl https://get.volta.sh | bash
+```
+
+NodeJS Corepack feature is used to manage the Yarn package manager version.
+Volta doesn't currently integrate with Corepack, as it installs its own shims which prevent the Corepack ones from being applied. You will need to run the following two commands to force the integration:
+
+```bash
+npm install -g corepack
+# Specifying an explicit install-directory makes corepack overwrite volta's yarn shims, which is what we want
+corepack enable --install-directory ~/.volta/bin
+```
+
+Install dependencies:
+
+```bash
+yarn install
+```
+
 Setup Yarn SDK and `.vscode/settings.json` file with:
 
 ```bash
