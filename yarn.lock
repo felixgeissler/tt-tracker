@@ -5758,7 +5758,7 @@ __metadata:
     karma-coverage: "npm:~2.2.1"
     karma-jasmine: "npm:~5.1.0"
     karma-jasmine-html-reporter: "npm:~2.1.0"
-    pocketbase: "npm:^0.19.0"
+    pocketbase: "npm:^0.21.1"
     postcss: "npm:^8.4.33"
     rxjs: "npm:~7.8.1"
     tailwindcss: "npm:^3.4.1"
@@ -8178,10 +8178,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pocketbase@npm:^0.19.0":
-  version: 0.19.0
-  resolution: "pocketbase@npm:0.19.0"
-  checksum: 10c0/3d9a653cb1a38c07894678cb653dabb07dd9b2ede81299bc24f75d5a88a0e178f675711b91484bbca17831fda7a8234f27a873e7a5f058c535c4ff0014ae6eb1
+"pocketbase@npm:^0.21.1":
+  version: 0.21.1
+  resolution: "pocketbase@npm:0.21.1"
+  checksum: 10c0/eb38b49b2df16da244795d0360813287992a24e0a020b98fe157be2f1a96913196998313e5a9bab133c655d702c96729158c7467f67bb24f0ff89b32fb826080
   languageName: node
   linkType: hard
 
