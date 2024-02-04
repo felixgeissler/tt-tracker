@@ -1,11 +1,11 @@
 {
   "name": "pocketgolf",
-  "packageManager": "yarn@4.0.2",
+  "packageManager": "yarn@4.1.0",
   "workspaces": [
     "packages/*"
   ],
   "volta": {
-    "node": "20.9.0"
+    "node": "20.11.0"
   },
   "scripts": {
     "lint": "eslint .",
