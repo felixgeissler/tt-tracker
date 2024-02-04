@@ -9,7 +9,7 @@
         "color": "terminal.ansiGreen"
       },
       "type": "shell",
-      "command": "./pocketbase serve",
+      "command": "./pocketbase serve --dev",
       "options": {
         "cwd": "${workspaceFolder}/backend"
       },
