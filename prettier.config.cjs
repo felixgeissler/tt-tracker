@@ -11,7 +11,7 @@ const config = {
   trailingComma: 'es5',
   bracketSameLine: true,
   endOfLine: 'lf',
-  plugins: [],
+  plugins: [require.resolve('prettier-plugin-tailwindcss')],
 };
 
 module.exports = config;
