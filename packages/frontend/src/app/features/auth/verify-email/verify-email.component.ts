@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   OnInit,
   inject,
   signal,
@@ -37,8 +36,6 @@ export class VerifyEmailComponent implements OnInit {
   private route = inject(ActivatedRoute);
 
   verifyState = signal<VerifyEmailState>('loading');
-
-  @Input({ required: true }) token = '';
 
   ngOnInit(): void {
     this.route.queryParamMap

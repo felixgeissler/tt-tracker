@@ -2,10 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Input,
   Renderer2,
   effect,
   inject,
+  input,
   signal,
 } from '@angular/core';
 import { IconService } from './icon.service';
@@ -24,15 +24,16 @@ export class IconComponent {
 
   private readonly svg = signal('');
 
-  @Input({ required: true }) set name(name: string) {
-    this.iconService.getIconSvg(name).subscribe({
-      next: svg => this.svg.set(svg),
-    });
-  }
-
-  @Input() class = '';
+  name = input.required<string>();
+  class = input<string>('');
 
   constructor() {
+    effect(() => {
+      this.iconService.getIconSvg(this.name()).subscribe({
+        next: svg => this.svg.set(svg),
+      });
+    });
+
     effect(() => {
       // XSS Caution - This assumes the content is safe!
       this.renderer.setProperty(
@@ -40,15 +41,17 @@ export class IconComponent {
         'innerHTML',
         this.svg()
       );
-      this.class.split(' ').forEach(componentClass => {
-        const supportedClassOnSvg = ['fill-', 'stroke-', 'w-', 'h-'].some(
-          supportedClass => componentClass.startsWith(supportedClass)
-        );
-        const svgElement = this.elementRef.nativeElement.children[0];
-        if (supportedClassOnSvg && svgElement) {
-          this.renderer.addClass(svgElement, componentClass);
-        }
-      });
+      this.class()
+        .split(' ')
+        .forEach(componentClass => {
+          const supportedClassOnSvg = ['fill-', 'stroke-', 'w-', 'h-'].some(
+            supportedClass => componentClass.startsWith(supportedClass)
+          );
+          const svgElement = this.elementRef.nativeElement.children[0];
+          if (supportedClassOnSvg && svgElement) {
+            this.renderer.addClass(svgElement, componentClass);
+          }
+        });
     });
   }
 }

@@ -10,8 +10,8 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   inject,
+  input,
   signal,
 } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -103,10 +103,10 @@ const mobileSideNavAnimations = [
   animations: mobileSideNavAnimations,
 })
 export class BaseLayoutComponent {
-  public viewportService = inject(ViewportService);
-  public authService = inject(AuthService);
+  viewportService = inject(ViewportService);
+  authService = inject(AuthService);
 
-  @Input() public menuItems: MenuItem[] = [];
+  menuItems = input.required<MenuItem[]>();
 
-  readonly isMobileMenuOpen = signal(false);
+  isMobileMenuOpen = signal(false);
 }

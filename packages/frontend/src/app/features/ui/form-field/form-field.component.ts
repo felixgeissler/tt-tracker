@@ -8,9 +8,8 @@ import {
   ContentChild,
   DestroyRef,
   ElementRef,
-  Input,
-  booleanAttribute,
   inject,
+  input,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -29,8 +28,9 @@ export class FormFieldComponent<T> implements AfterViewInit, AfterContentInit {
   private cdr = inject(ChangeDetectorRef);
   private destroyRef = inject(DestroyRef);
 
-  @Input({ transform: booleanAttribute }) active = false;
-  @Input() label = '';
+  active = input<boolean>(false);
+  label = input<string>('');
+
   @ContentChild(FormFieldControl, { descendants: true, static: false })
   public formFieldControl!: FormFieldControl<T>;
 
