@@ -8,5 +8,5 @@ export const notAuthenticatedGuard: CanActivateFn = () => {
   if (!authService.isLoggedIn) {
     return true;
   }
-  return router.parseUrl('/home');
+  return router.parseUrl('/');
 };

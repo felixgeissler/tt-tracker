@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+@if (usePageLayout() === 'landing') {
+  <app-landing-layout>
+    <router-outlet></router-outlet>
+  </app-landing-layout>
+} @else {
+  <app-base-layout [menuItems]="appMenuItems()">
+    <router-outlet></router-outlet>
+  </app-base-layout>
+}

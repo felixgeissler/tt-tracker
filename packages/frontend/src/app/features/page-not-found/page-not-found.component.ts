@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -10,4 +10,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './page-not-found.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageNotFoundComponent {}
+export class PageNotFoundComponent {
+  private location = inject(Location);
+
+  goBack() {
+    this.location.back();
+  }
+}

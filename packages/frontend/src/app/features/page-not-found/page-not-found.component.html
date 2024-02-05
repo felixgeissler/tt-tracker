@@ -1,9 +1,10 @@
-<div class="flex flex-col items-center justify-center h-screen">
+<div class="flex h-screen flex-col items-center justify-center">
   <h1 class="text-6xl font-bold">404</h1>
   <h2 class="text-2xl font-bold">Page not found</h2>
-  <a
-    routerLink="/"
+  <button
+    type="button"
     class="mt-6 font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-    >Go back home</a
-  >
+    (click)="goBack()">
+    Go back
+  </button>
 </div>
