@@ -1,0 +1,239 @@
+<!-- content-container -->
+<div
+  class="flex grow w-full h-full {{
+    viewportService.isMobile() ? 'flex-col' : 'flex-row'
+  }} bg-gray-100">
+  @if (viewportService.isMobile()) {
+    <!-- Mobile header-->
+    <div class="z-10 w-full border-b border-gray-200 bg-white">
+      <!-- TODO: add env(safe-area-inset-top) to top padding -->
+      <header
+        class="pt-safe px-safe-or-4 flex min-h-[64px] flex-row items-center justify-between">
+        <!-- Header left -->
+        <div class="flex grow items-center">
+          <h1 class="py-4 text-2xl font-bold text-gray-800">Home</h1>
+        </div>
+        <!-- Header right -->
+        <div class="flex items-center">
+          <!-- Burger menu -->
+          <button
+            class="flex h-9 w-9 items-center justify-center rounded-md bg-transparent text-indigo-700 transition-colors"
+            type="button"
+            (click)="isMobileMenuOpen.set(true)"
+            aria-label="show menu">
+            <app-icon
+              name="menu-2"
+              class="h-6 w-6 flex-shrink-0 stroke-2"
+              aria-hidden="true"></app-icon>
+          </button>
+        </div>
+      </header>
+    </div>
+  } @else {
+    <!-- Desktop sidenav-->
+    <div
+      class="py-safe pl-safe-or-5 flex w-56 shrink-0 flex-col border-r border-gray-200 bg-white pr-5">
+      <div class="flex h-16 flex-row items-center">
+        <div class="flex h-8 flex-row gap-2">
+          <img
+            height="32"
+            width="32"
+            ngSrc="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt="Logo" />
+          <h2 class="cursor-default text-xl font-bold text-gray-700">
+            Pocketgolf
+          </h2>
+        </div>
+      </div>
+      <nav class="mt-2 overflow-y-auto overflow-x-hidden">
+        <ul class="flex flex-col gap-2">
+          @for (menuItem of menuItems; track $index) {
+            @if (!menuItem.hideOnDesktop) {
+              @if (menuItem.type === 'divider') {
+                <li
+                  class="before:my-1 before:block before:h-[1px] before:w-full before:bg-gray-200 before:content-['']"></li>
+              } @else if (menuItem.type === 'link') {
+                <li>
+                  <a
+                    #isRouterLinkActive="routerLinkActive"
+                    class="flex flex-row items-center gap-3 rounded-md p-2 text-sm text-gray-600 transition-colors hover:bg-gray-100"
+                    routerLinkActive="bg-gray-100 font-bold !text-indigo-600"
+                    [routerLink]="menuItem.routerLink">
+                    @if (menuItem.icon) {
+                      <app-icon
+                        [name]="
+                          isRouterLinkActive.isActive
+                            ? menuItem.activeIcon || menuItem.icon
+                            : menuItem.icon
+                        "
+                        class="h-6 w-6 flex-shrink-0 stroke-2"
+                        aria-hidden="true"></app-icon>
+                      <span class="">{{ menuItem.label }}</span>
+                    }
+                  </a>
+                </li>
+              } @else if (menuItem.type === 'action') {
+                <li>
+                  <button
+                    type="button"
+                    class="flex w-full flex-row items-center gap-3 rounded-md p-2 text-sm text-gray-600 transition-colors hover:bg-gray-100"
+                    (click)="menuItem.onInteraction()">
+                    @if (menuItem.icon) {
+                      <app-icon
+                        class="h-6 w-6 flex-shrink-0 stroke-2"
+                        aria-hidden="true"
+                        [name]="menuItem.icon"></app-icon>
+                    }
+                    <span class="">{{ menuItem.label }}</span>
+                  </button>
+                </li>
+              }
+            }
+          }
+        </ul>
+      </nav>
+    </div>
+  }
+
+  @if (isMobileMenuOpen()) {
+    <!-- Mobile sidenav -->
+    <div @mobileSideNav>
+      <!-- Backdrop -->
+      <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+      <div
+        @mobileSideNavBackdrop
+        class="fixed bottom-0 left-0 right-0 top-0 z-40 bg-gray-900 bg-opacity-70"
+        (click)="isMobileMenuOpen.set(false)"></div>
+      <!-- Nav -->
+      <div
+        @mobileSideNavNavigation
+        class="pr-safe-or-4 py-safe-or-2 fixed bottom-0 right-0 top-0 z-50 flex w-full max-w-xs origin-right flex-col overflow-y-auto bg-white pl-4">
+        <div class="flex h-16 flex-row items-center justify-between">
+          <div class="flex h-8 flex-row gap-2">
+            <img
+              height="32"
+              width="32"
+              ngSrc="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              alt="Logo" />
+            <h2 class="cursor-default text-xl font-bold text-gray-700">
+              Pocketgolf
+            </h2>
+          </div>
+          <div class="flex h-16 flex-row items-center justify-between">
+            <button
+              class="flex h-9 w-9 items-center justify-center rounded-md bg-gray-100 transition-colors hover:bg-gray-200"
+              type="button"
+              aria-label="close"
+              (click)="isMobileMenuOpen.set(false)">
+              <app-icon
+                name="x"
+                class="h-5 w-5 flex-shrink-0 stroke-2 text-gray-900"
+                aria-hidden="true"></app-icon>
+            </button>
+          </div>
+        </div>
+        <ul class="mt-3 flex flex-col gap-2">
+          @for (menuItem of menuItems; track $index) {
+            @if (!menuItem.hideOnMobile) {
+              @if (menuItem.type === 'divider') {
+                <li
+                  class="before:my-3 before:block before:h-[1px] before:w-full before:bg-gray-200 before:content-['']"></li>
+              } @else if (menuItem.type === 'link') {
+                <li>
+                  <a
+                    #isRouterLinkActive="routerLinkActive"
+                    class="flex flex-row items-center gap-3 rounded-md p-2 text-base leading-7 text-gray-600 transition-colors hover:bg-gray-100"
+                    routerLinkActive="font-bold !text-indigo-600"
+                    [routerLink]="menuItem.routerLink">
+                    @if (menuItem.icon) {
+                      <app-icon
+                        class="h-6 w-6 flex-shrink-0 stroke-2"
+                        aria-hidden="true"
+                        [name]="
+                          isRouterLinkActive.isActive
+                            ? menuItem.activeIcon || menuItem.icon
+                            : menuItem.icon
+                        "></app-icon>
+                    }
+                    <span class="">{{ menuItem.label }}</span>
+                  </a>
+                </li>
+              } @else if (menuItem.type === 'action') {
+                <li>
+                  <button
+                    type="button"
+                    class="flex w-full flex-row items-center gap-3 rounded-md p-2 text-base leading-7 text-gray-600 transition-colors hover:bg-gray-100"
+                    (click)="menuItem.onInteraction()">
+                    @if (menuItem.icon) {
+                      <app-icon
+                        class="h-6 w-6 flex-shrink-0 stroke-2"
+                        aria-hidden="true"
+                        [name]="menuItem.icon"></app-icon>
+                    }
+                    <span class="">{{ menuItem.label }}</span>
+                  </button>
+                </li>
+              }
+            }
+          }
+        </ul>
+      </div>
+    </div>
+  }
+
+  <!-- Content -->
+  <div class="flex grow flex-col overflow-hidden">
+    @if (!viewportService.isMobile()) {
+      <!-- Desktop title header -->
+      <div class="block w-full shrink-0 border-b border-gray-200">
+        <header
+          class="pt-safe pr-safe-or-5 mx-auto flex min-h-[64px] max-w-7xl flex-row items-center justify-between pl-8">
+          <!-- Header left -->
+          <div class="flex h-full items-center">
+            <!-- Title wrapper -->
+            <div class="flex items-baseline">
+              <h1
+                class="overflow-hidden text-ellipsis whitespace-nowrap text-2xl font-bold text-gray-800">
+                Home
+              </h1>
+            </div>
+          </div>
+          <!-- Header right -->
+          <div class="ml-6 flex grow items-center justify-end gap-3">
+            <button
+              type="button"
+              aria-label="notification"
+              class="group relative flex h-11 w-11 items-center justify-center rounded-full bg-transparent text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-800">
+              <app-icon
+                name="bell-filled"
+                class="h-6 w-6 flex-shrink-0 stroke-[2]"
+                aria-hidden="true"></app-icon>
+              <span
+                class="absolute bottom-[.625rem] right-[.625rem] box-content h-[.4375rem] w-[.4375rem] rounded-full border-2 border-gray-100 bg-red-600 transition-colors group-hover:border-gray-200"></span>
+            </button>
+            <button
+              type="button"
+              aria-label="logout"
+              class="group relative flex h-11 w-11 items-center justify-center rounded-full bg-transparent text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-800"
+              (click)="authService.logout()">
+              <app-icon
+                name="power"
+                class="h-6 w-6 flex-shrink-0 stroke-[2]"
+                aria-hidden="true"></app-icon>
+            </button>
+          </div>
+        </header>
+      </div>
+    }
+
+    <!-- Scrollable content -->
+    <div class="relative flex min-h-0 grow flex-col items-center overflow-auto">
+      <main
+        class="flex flex-col grow max-w-7xl w-full min-h-min py-5 {{
+          viewportService.isMobile() ? 'p-safe-or-4' : 'pr-safe-or-5 pl-6'
+        }}">
+        <ng-content select="router-outlet"></ng-content>
+      </main>
+    </div>
+  </div>
+</div>

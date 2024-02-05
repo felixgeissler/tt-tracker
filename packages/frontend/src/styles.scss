@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/** Custom Reset */
+* {
+  // https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/#the-minimum-size-gotcha-11
+  min-width: 0;
+}
+
 @font-face {
   font-family: 'Inter';
   src:

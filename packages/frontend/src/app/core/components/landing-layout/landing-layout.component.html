@@ -1,0 +1,70 @@
+<!-- content-container -->
+<div class="flex h-full w-full grow flex-col bg-white">
+  <div class="flex grow flex-col overflow-hidden">
+    <div class="block w-full shrink-0 border-b border-gray-200">
+      <header
+        class="pt-safe pr-safe-or-5 mx-auto flex min-h-[64px] max-w-7xl flex-row items-center justify-between pl-8">
+        <!-- Header left -->
+        <div class="flex h-full items-center">
+          <!-- Title wrapper -->
+          <div class="flex items-baseline">
+            <a
+              routerLink="/"
+              class="flex h-8 flex-row gap-2 text-xl font-bold text-gray-700">
+              <img
+                height="32"
+                width="32"
+                ngSrc="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                alt="Logo" />
+              @if (!viewportService.isMobile()) {
+                Pocketgolf
+              }
+            </a>
+          </div>
+        </div>
+        <!-- Header right -->
+        <div class="ml-6 flex grow items-center justify-end gap-3">
+          <a
+            routerLink="/scoreboard"
+            class="flex justify-center rounded-lg bg-transparent px-3 py-2.5 text-sm font-medium leading-6 text-gray-900 transition-colors hover:text-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Scoreboard
+          </a>
+          @if (authService.isLoggedIn) {
+            <a
+              routerLink="/home"
+              class="flex justify-center rounded-lg bg-transparent px-3 py-2.5 text-sm font-medium leading-6 text-gray-900 transition-colors hover:text-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              App
+            </a>
+            <button
+              type="button"
+              class="flex justify-center rounded-lg bg-transparent px-3 py-2.5 text-sm font-medium leading-6 text-gray-900 transition-colors hover:text-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              (click)="authService.logout()">
+              Logout
+            </button>
+          } @else {
+            <a
+              routerLink="/login"
+              class="flex justify-center rounded-lg border bg-gray-200 px-3 py-2.5 text-sm font-bold leading-6 text-gray-900 shadow-sm transition-colors hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              Log in
+            </a>
+            <a
+              routerLink="/register"
+              class="flex justify-center rounded-lg bg-indigo-600 px-3 py-2.5 text-sm font-bold leading-6 text-white shadow-sm transition-colors hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              Sign up now
+            </a>
+          }
+        </div>
+      </header>
+    </div>
+
+    <!-- Scrollable content -->
+    <div class="relative flex min-h-0 grow flex-col items-center overflow-auto">
+      <main
+        class="flex flex-col grow max-w-7xl w-full min-h-min {{
+          viewportService.isMobile() ? 'p-safe-or-4' : 'pr-safe-or-5 pl-6'
+        }}">
+        <ng-content select="router-outlet"></ng-content>
+      </main>
+    </div>
+  </div>
+</div>
