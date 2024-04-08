@@ -34,6 +34,10 @@ Add these default VSCode settings to `.vscode/settings.json`:
 ```jsonc
 {
   // ...
+  "eslint.nodePath": ".yarn/sdks",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "[typescript]": {
@@ -78,3 +82,33 @@ To enable debugging create a `launch.json` file in `.vscode/` with the following
   ],
 }
 ```
+
+## Troubleshooting
+
+### Yarn Plug'n'Play manifest forbids importing errors
+
+If you get errors like these:
+
+```
+✘ [ERROR] Could not resolve "@angular/common"
+
+    ../../.yarn/__virtual__/@angular-animations-virtual-7b2b041cfb/3/.yarn/berry/cache/@angular-animations-npm-17.3.3-9835185629-10c0.zip/node_modules/@angular/animations/fesm2022/animations.mjs:7:25:
+      7 │ import { DOCUMENT } from '@angular/common';
+        ╵                          ~~~~~~~~~~~~~~~~~
+
+  The Yarn Plug'n'Play manifest forbids importing "@angular/common" here because it's not listed as
+  a dependency of this package:
+
+    ../../.pnp.cjs:441:31:
+      441 │         "packageDependencies": [\
+          ╵                                ~~
+
+  You can mark the path "@angular/common" as external to exclude it from the bundle, which will
+  remove this error and leave the unresolved path in the bundle.
+```
+
+Then it is likely due to third-party package missconfiguration (usually missing dependencies / peerDependencies). To fix this, link the packages in a corresponding _.yarnrc.yml_ file.
+
+After that it is required the delete the Yarn PNP files with `rm .pnp.*` and run a `yarn install`.
+
+If the issue still persists, make sure to run an install in the corresponding workspace, e.g. `yarn workspace frontend install`.
