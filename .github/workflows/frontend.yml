@@ -23,6 +23,6 @@ jobs:
           node-version: '20'
           cache: 'yarn'
       - name: Install Yarn dependencies
-        run: yarn install --immutable
+        run: yarn workspace frontend install --immutable
       - name: Build frontend
         run: yarn workspace frontend run build
