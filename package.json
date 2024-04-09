@@ -1,5 +1,5 @@
 {
-  "name": "pocketgolf",
+  "name": "tt-tracker",
   "packageManager": "yarn@4.1.1",
   "workspaces": [
     "packages/*"

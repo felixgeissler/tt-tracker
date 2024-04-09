@@ -1,4 +1,4 @@
-# Pocketgolf
+# TT Tracker (Tischtennis Tracker)
 
 ## Development (VSCode)
 
