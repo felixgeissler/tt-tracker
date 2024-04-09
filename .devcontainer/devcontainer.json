@@ -1,0 +1,58 @@
+// For format details, see https://containers.dev/implementors/json_reference/
+{
+  "name": "tt-tracker",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm",
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/meaningful-ooo/devcontainer-features/fish:1": {},
+    "ghcr.io/devcontainers/features/sshd:1": {}
+  },
+  "onCreateCommand": "sudo cp .devcontainer/welcome-message.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt && sudo corepack enable",
+  "postCreateCommand": "yarn install",
+  "waitFor": "postCreateCommand",
+  "portsAttributes": {
+    "4200": {
+      "label": "Angular",
+      "onAutoForward": "openBrowser"
+      },
+    "8090": {
+      "label": "Pocketbase",
+      "onAutoForward": "notify"
+      }
+    },
+  "customizations": {
+    "vscode": {
+      "settings": {
+          "eslint.nodePath": ".yarn/sdks",
+          "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
+          "typescript.tsdk": ".yarn/sdks/typescript/lib",
+          "typescript.enablePromptUseWorkspaceTsdk": true,
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true,
+          "[typescript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.codeActionsOnSave": {
+              "source.organizeImports": "explicit",
+              "source.fixAll.eslint": "explicit"
+            },
+            "editor.formatOnSave": false
+          },
+          "[html]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+            "editor.codeActionsOnSave": {
+              "source.fixAll.eslint": "explicit"
+            },
+            "editor.formatOnSave": true
+          }
+      },
+      "extensions": [
+          "angular.ng-template",
+          "esbenp.prettier-vscode",
+          "dbaeumer.vscode-eslint",
+          "arcanis.vscode-zipfs",
+          "cyrilletuzi.angular-schematics", "bradlc.vscode-tailwindcss"
+      ]
+    }
+  }
+}
